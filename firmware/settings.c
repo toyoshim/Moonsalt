@@ -42,10 +42,10 @@ static void load_map_preset(void) {
     uint16_t bit = 0x2000;
     for (uint8_t i = 0; i < 16; ++i) {
       if (i == 12) {
-        settings[p].digital[i].map1 = 0x80;
+        settings[p].digital[i].map1 = 0x40;
         settings[p].digital[i].map2 = 0x00;
       } else if (i == 13) {
-        settings[p].digital[i].map1 = 0x40;
+        settings[p].digital[i].map1 = 0x80;
         settings[p].digital[i].map2 = 0x00;
       } else {
         settings[p].digital[i].map1 = bit >> 8;

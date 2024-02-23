@@ -71,23 +71,22 @@ void main(void) {
   struct {
     uint8_t port;
     uint8_t pin;
-  } buttons[16] = {
-      {0xff, 0xff},  // N/A
-      {4, 6},        // BOOT
-      {3, 5},        // UP
-      {3, 4},        // DOWN
-      {3, 3},        // LEFT
-      {3, 2},        // RIGHT
-      {3, 1},        // B1
-      {3, 0},        // B2
-      {2, 7},        // B3
-      {2, 6},        // B4
-      {2, 5},        // B5
-      {2, 4},        // B6
-      {2, 3},        // B7
-      {2, 2},        // B8
-      {0, 6},        // COIN
-      {3, 7},        // START
+  } buttons[15] = {
+      {3, 7},  // START
+      {0, 6},  // COIN
+      {3, 5},  // UP
+      {3, 4},  // DOWN
+      {3, 3},  // LEFT
+      {3, 2},  // RIGHT
+      {3, 1},  // B1
+      {3, 0},  // B2
+      {2, 7},  // B3
+      {2, 6},  // B4
+      {2, 5},  // B5
+      {2, 4},  // B6
+      {2, 3},  // B7
+      {2, 2},  // B8
+      {4, 6},  // BOOT
   };
   for (uint8_t i = 0; i < 15; ++i) {
     pinMode(buttons[i].port, buttons[i].pin, INPUT_PULLUP);
@@ -145,10 +144,8 @@ void main(void) {
     uint16_t v = controller_digital(0);
     uint16_t bit = 0x8000;
     for (uint8_t i = 0; i < 15; ++i) {
-      if (buttons[i].port != 0xff) {
-        pinMode(buttons[i].port, buttons[i].pin,
-                (v & bit) ? OUTPUT : INPUT_PULLUP);
-      }
+      pinMode(buttons[i].port, buttons[i].pin,
+              (v & bit) ? OUTPUT : INPUT_PULLUP);
       bit >>= 1;
     }
 
@@ -161,7 +158,7 @@ void main(void) {
             "  A3   A4   A5");
         init = true;
       }
-      uint16_t v = controller_raw_digital(1);
+      uint16_t v = controller_raw_digital(0);
       for (uint16_t b = 0x8000; b != 0; b >>= 1) {
         Serial.printf("%d  ", (v & b) ? 1 : 0);
       }

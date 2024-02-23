@@ -183,6 +183,10 @@ void controller_update(const uint8_t hub,
       digital_map2 |= settings->digital[4 + i].map2;
     }
   }
+  if (button_check(info->button[12], data)) {
+    digital_map2 |= 0x02;
+  }
+
   digital[hub] = (digital_map1 << 8) | digital_map2;
   raw_digital[hub] = raw_data;
 }
